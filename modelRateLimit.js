@@ -1,5 +1,4 @@
 module.exports={
-    limit: 4,
     ipRecord:{},//{ip:{time, count}}
     resetIp: function(ip,time){
         let t = (new Date).getTime();
