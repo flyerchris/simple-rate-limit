@@ -11,7 +11,7 @@ module.exports={
         return this.ipRecord[ip];
     },
     getIp: function(ip){
-        return this.ipRecord[ip] || this.resetIp(ip);
+        return this.ipRecord[ip];
     },
     addIpCounter: function(ip,n=null){
         let ad = n || 1;
