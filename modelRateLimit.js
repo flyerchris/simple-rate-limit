@@ -1,23 +1,26 @@
+let ipRecord = {}//{ip:{time, count}}
 module.exports={
-    ipRecord:{},//{ip:{time, count}}
     resetIp: function(ip,time){
         let t = (new Date).getTime();
-        if(this.ipRecord[ip]){
-            this.ipRecord[ip].time = t;
-            this.ipRecord[ip].count = 0;
+        if(ipRecord[ip]){
+            ipRecord[ip].time = t;
+            ipRecord[ip].count = 0;
         }else{
-            this.ipRecord[ip] = {time: t, count: 0};
+            ipRecord[ip] = {time: t, count: 0};
         }
-        return this.ipRecord[ip];
+        return ipRecord[ip];
     },
     getIp: function(ip){
-        return this.ipRecord[ip];
+        return ipRecord[ip];
     },
     addIpCounter: function(ip,n=null){
         let ad = n || 1;
-        if(this.ipRecord[ip]){
-            this.ipRecord[ip].count+= ad;
+        if(ipRecord[ip]){
+            ipRecord[ip].count+= ad;
         }
-        return this.ipRecord[ip];
+        return ipRecord[ip];
+    },
+    clean: function(){
+        ipRecord = {};
     }
 }
