@@ -60,7 +60,7 @@ function initData(){
     (function(){
         initData();
         console.log("\t測試 addIpCounter...");
-        process.stdout.write("\t\t沒記錄回傳null...");
+        process.stdout.write("\t\t沒記錄回傳 null...");
         if(!modelRateLimit.addIpCounter("1.1.1.1")){
             console.log("OK");
         }else{
@@ -79,21 +79,30 @@ function initData(){
 })();
 
 (function(){
-    console.log("測試 mwRateLimit");
+    console.log("\n測試 mwRateLimit");
+    let cl = console.log;
+    console.log = function(v){};
     (function(){
         initData();
+        let testfailed = false;
         process.stdout.write("\t正常紀錄30秒內30次造訪...");
         for(let i=1;i<=30;i++){
             mwRateLimit(req,res,{rateLimit:modelRateLimit});
             if(res._write!="request "+i){
-                console.log("造訪錯誤",i);
+                process.stdout.write("failed\n",i);
+                testfailed = true;
                 break;
             }
         }
+        if(!testfailed)process.stdout.write("OK");
+
         process.stdout.write("\n\t第31次造訪要顯示error...");
         mwRateLimit(req,res,{rateLimit:modelRateLimit});
         if(res._write!="error"){
-            console.log("阻擋錯誤");
+            process.stdout.write("failed\n");
+        }else{
+            process.stdout.write("OK\n");
         }
     })();
+    console.log = cl;
 })();
