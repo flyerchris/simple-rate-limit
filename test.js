@@ -40,8 +40,8 @@ function initData(){
         initData();
         console.log("\t測試resetIp...");
         process.stdout.write("\t\t寫入紀錄...");
-        modelRateLimit.resetIp(req.connection.remoteAddress);
-        if(modelRateLimit.getIp(req.connection.remoteAddress)){
+        let ipr = modelRateLimit.resetIp(req.connection.remoteAddress);
+        if(ipr && ipr.count==0){
             console.log("OK");
         }else{
             console.log("failed");
